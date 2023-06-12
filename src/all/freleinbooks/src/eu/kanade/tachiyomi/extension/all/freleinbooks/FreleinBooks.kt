@@ -94,11 +94,8 @@ class FreleinBooks() : ParsedHttpSource() {
         val manga = SManga.create()
         manga.title = document.select(".postTitle").text()
         manga.description = "Read ${document.select(".postTitle").text()} \n \nNote: If you encounters error when opening the magazine, please press the WebView button then leave a comment on our web so we can update it soon."
-        val genres = mutableListOf<String>()
-        document.select(".labelLink > a").forEach {
-            genres.add(it.text())
-        }
-        manga.genre = genres.joinToString(", ")
+        manga.genre = document.select(".labelLink > a")
+            .joinToString(", ") { it.text() }
         manga.status = SManga.COMPLETED
         return manga
     }
